@@ -9,14 +9,14 @@ export function formatDate(date: Date) {
   return Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "2-digit",
-    year: "numeric"
+    year: "numeric",
   }).format(date);
 }
 
 export function readingTime(html: string) {
   const textOnly = html.replace(/<[^>]+>/g, "");
   const wordCount = textOnly.split(/\s+/).length;
-  const readingTimeMinutes = ((wordCount / 200) + 1).toFixed();
+  const readingTimeMinutes = (wordCount / 200 + 1).toFixed();
   return `${readingTimeMinutes} min read`;
 }
 
@@ -37,4 +37,9 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
   }
 
   return `${startMonth}${startYear} - ${endMonth}${endYear}`;
+}
+
+export function isRTL(text: string) {
+  const rtlPattern = /[\u04c7-\u0591\u05D0-\u05EA\u05F0-\u05F4\u0600-\u06FF]/;
+  return rtlPattern.test(text);
 }

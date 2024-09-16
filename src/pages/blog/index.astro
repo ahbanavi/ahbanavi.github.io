@@ -4,6 +4,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ArrowCard from "@components/ArrowCard.astro";
 import { BLOG } from "@consts";
+import { isRTL } from "@lib/utils";
 
 const data = (await getCollection("blog"))
   .filter(post => !post.data.draft)
@@ -41,7 +42,7 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
               <ul class="flex flex-col gap-4">
                 {
                   posts[year].map((post) => (
-                    <li>
+                    <li class={isRTL(post.data.title) ? "isrtl" : ""}>
                       <ArrowCard entry={post}/>
                     </li>
                   ))
