@@ -5,6 +5,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: "https://ydst.ir",
+  site: "https://ydst.tech",
   integrations: [mdx(), sitemap(), tailwind()],
 });
