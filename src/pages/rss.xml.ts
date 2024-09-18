@@ -15,7 +15,9 @@ export async function GET(context: Context) {
   // const items = [...blog, ...projects]
   //   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
-  const items = blog.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+  const items = blog.sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
 
   return rss({
     title: HOME.TITLE,

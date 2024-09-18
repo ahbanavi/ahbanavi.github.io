@@ -4,18 +4,14 @@ module.exports = {
     browser: true,
     es2024: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:astro/recommended",
-    "plugin:@typescript-eslint/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:astro/recommended", "plugin:@typescript-eslint/recommended"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
   rules: {
     semi: ["error", "always"],
-    quotes: ["error", "double", { "allowTemplateLiterals": true }],
+    quotes: ["error", "double", { allowTemplateLiterals: true }],
     "@typescript-eslint/triple-slash-reference": "off",
   },
   overrides: [
