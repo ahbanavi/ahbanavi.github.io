@@ -73,7 +73,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
 <script is:inline>
   function init() {
-    setParagraphDirection();
+    setBidiDirection();
     preloadTheme();
     onScroll();
     animate();
@@ -182,12 +182,11 @@ function toggleTheme(dark) {
     return rtlPattern.test(text);
   }
 
-  function setParagraphDirection() {
-    const paragraphs = document.querySelectorAll("article p");
-      paragraphs.forEach((p) => {
-        if (isRTL(p.textContent)) {
-          p.classList.add("isrtl");
-        }
+  function setBidiDirection() {
+    document.querySelectorAll("article *").forEach((element) => {
+      if (isRTL(element.textContent)) {
+        element.classList.add("isrtl");
+      }
     });
   }
 
