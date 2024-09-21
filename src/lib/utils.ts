@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { isRTL } from "plugins/rehypeBidi";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -39,7 +40,4 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
   return `${startMonth}${startYear} - ${endMonth}${endYear}`;
 }
 
-export function isRTL(text: string) {
-  const rtlPattern = /[\u04c7-\u0591\u05D0-\u05EA\u05F0-\u05F4\u0600-\u06FF]/;
-  return rtlPattern.test(text);
-}
+export { isRTL };

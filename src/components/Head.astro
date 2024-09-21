@@ -73,7 +73,6 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
 <script is:inline>
   function init() {
-    setBidiDirection();
     preloadTheme();
     onScroll();
     animate();
@@ -175,19 +174,6 @@ function toggleTheme(dark) {
     } else {
       toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
     }
-  }
-
-  function isRTL(text) {
-    const rtlPattern = /[\u04c7-\u0591\u05D0-\u05EA\u05F0-\u05F4\u0600-\u06FF]/;
-    return rtlPattern.test(text);
-  }
-
-  function setBidiDirection() {
-    document.querySelectorAll("article *").forEach((element) => {
-      if (isRTL(element.textContent)) {
-        element.classList.add("isrtl");
-      }
-    });
   }
 
   document.addEventListener("DOMContentLoaded", () => init());
