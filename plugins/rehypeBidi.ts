@@ -9,7 +9,7 @@ export const isRTL = (text: string): boolean => {
 
 export const rehypeBidi: RehypePlugin = ({
   rtlClassName = "isrtl",
-  rtlTags = ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
+  rtlTags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "div"],
   listTags = ["ul", "ol"],
 } = {}) => {
   return (tree) => {
