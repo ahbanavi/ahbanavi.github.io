@@ -10,7 +10,13 @@ const domain = process.env.WEB_DOMAIN || "ydst.tech";
 
 export default defineConfig({
   site: "https://" + domain,
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind({
+      nesting: true,
+    }),
+  ],
   markdown: {
     rehypePlugins: [[targetBlank, { domain: domain }], rehypeBidi],
     remarkPlugins: [remarkCallout],
