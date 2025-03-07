@@ -9,22 +9,10 @@
         // Clean up any existing lightbox elements first
         cleanupLightbox();
         
-        // Process lightbox links to use the final optimized image URLs
-        document.querySelectorAll('a.lightbox').forEach(link => {
-            // Find the image inside the link
-            const img = link.querySelector('img');
-            if (img) {
-                // Use the final optimized URL from the img src
-                const finalSrc = img.getAttribute('src');
-                if (finalSrc) {
-                    link.href = finalSrc;
-                }
-            }
-        });
-        
         // Initialize SimpleLightbox with appropriate options
-        if (document.querySelectorAll('.gallery a.lightbox').length > 0) {
-            lightboxInstance = new SimpleLightbox(".gallery a.lightbox", {
+        if (document.querySelectorAll('.gallery img').length > 0) {
+            lightboxInstance = new SimpleLightbox(".gallery img", {
+                sourceAttr: 'src',
                 history: false,
                 captionsData: 'data-caption',
                 captionDelay: 250,
@@ -33,10 +21,8 @@
                 animationSpeed: 0,
                 fadeSpeed: 0,
                 overlayOpacity: 0.85,
-                showCounter: false,
-                closeText: '×',
+                showCounter: true,
                 afterClose: function() {
-                    // Force removal of overlay after close
                     setTimeout(cleanupRemnants, 10);
                 }
             });
@@ -55,7 +41,6 @@
         // Specifically remove any leftover overlays
         const overlays = document.querySelectorAll('.sl-overlay');
         overlays.forEach(overlay => overlay.remove());
-        document.documentElement.classList.remove('sl-lightbox-active');
     }
     
     function cleanupLightbox() {
@@ -70,65 +55,9 @@
         const slElements = document.querySelectorAll('.sl-wrapper, .sl-overlay');
         slElements.forEach(el => el.remove());
         
-        // Remove active class from html element
-        document.documentElement.classList.remove('sl-lightbox-active');
     }
     
     // Handle cleanup during page transitions
     document.addEventListener('astro:before-preparation', cleanupLightbox);
     document.addEventListener('astro:before-swap', cleanupLightbox);
 </script>
-
-<style is:global>
-  /* SimpleLightbox Custom Styling */
-  .sl-overlay {
-    background-color: rgba(0, 0, 0, 0.85);
-    z-index: 9999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-  }
-  
-  .sl-wrapper {
-    z-index: 10000;
-  }
-  
-  .sl-wrapper .sl-close {
-    font-size: 28px;
-    color: #fff;
-    position: fixed;
-    right: 20px;
-    top: 20px;
-  }
-  
-  .sl-wrapper .sl-navigation button {
-    color: #fff;
-  }
-  
-  .sl-wrapper .sl-caption {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    font-size: 1rem;
-  }
-  
-  html.sl-lightbox-active {
-    overflow: hidden !important;
-  }
-  
-  /* Ensure no conflict with Astro transitions */
-  .sl-overlay, .sl-wrapper, .sl-wrapper * {
-    view-transition-name: none !important;
-    transition: none !important;
-    animation: none !important;
-  }
-  
-  /* Make sure the overlay is properly hidden when closing */
-  .sl-overlay.sl-fade-out {
-    opacity: 0 !important;
-    display: none !important;
-    visibility: hidden !important;
-  }
-</style>

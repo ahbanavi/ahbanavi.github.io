@@ -80,8 +80,69 @@ html.scrolled #back-to-top {
 
 
 .gallery img {
-  @apply max-w-full h-auto cursor-pointer;
+  cursor: zoom-in;
+  @apply max-w-full h-auto;
   @apply transition-transform duration-300 ease-in-out;
   @apply hover:scale-105;
   @apply md:max-w-[500px];
+}
+
+
+/*  LightBox */
+.sl-overlay {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+}
+
+.sl-wrapper {
+  z-index: 10000;
+}
+
+.sl-wrapper .sl-close {
+  font-size: 28px;
+  color: #fff;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+}
+
+.sl-wrapper .sl-navigation button {
+  color: #fff;
+}
+
+.sl-wrapper .sl-caption {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  color: #fff;
+  font-size: 1rem;
+}
+
+html.has-lightbox {
+  overflow: hidden !important;
+}
+
+
+
+
+/* Ensure no conflict with Astro transitions */
+.sl-overlay, .sl-wrapper, .sl-wrapper * {
+  view-transition-name: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Make sure the overlay is properly hidden when closing */
+.sl-overlay.sl-fade-out {
+  opacity: 0 !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.sl-counter {
+  color: #fff !important;
 }
