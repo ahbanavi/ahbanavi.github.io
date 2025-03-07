@@ -77,3 +77,11 @@ html.scrolled #back-to-top {
   text-align: right;
   font-family: Vazirmatn, sans-serif;
 }
+
+
+.gallery img {
+  @apply max-w-full h-auto cursor-pointer;
+  @apply transition-transform duration-300 ease-in-out;
+  @apply hover:scale-105;
+  @apply md:max-w-[500px];
+}

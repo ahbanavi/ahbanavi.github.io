@@ -6,6 +6,7 @@ import FormattedDate from "@components/FormattedDate.astro";
 import { readingTime, isRTL } from "@lib/utils";
 import BackToPrev from "@components/BackToPrev.astro";
 import PostComments from "@components/PostComments.astro";
+import Lightbox from "@components/Lightbox.astro";
 import '../../styles/_callout.css';
 
 
@@ -45,9 +46,10 @@ const { Content } = await post.render();
         <h1> {post.data.title} </h1>
       </div>
     </div>
-    <article class="animate">
+    <article class="animate gallery">
       <Content />
     </article>
     <PostComments />
+    <Lightbox />
   </Container>
 </PageLayout>

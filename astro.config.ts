@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { targetBlank } from "./plugins/targetBlank";
 import { rehypeBidi } from "./plugins/rehypeBidi";
+import { rehypeLightbox } from "./plugins/rehypeLightbox";
 import remarkCallout from "@r4ai/remark-callout";
 
 const domain = process.env.WEB_DOMAIN || "ydst.tech";
@@ -18,7 +19,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [[targetBlank, { domain: domain }], rehypeBidi],
+    rehypePlugins: [[targetBlank, { domain: domain }], rehypeBidi, rehypeLightbox],
     remarkPlugins: [remarkCallout],
   },
 });
