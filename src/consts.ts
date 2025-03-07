@@ -6,6 +6,7 @@ export const SITE: Site = {
   NUM_POSTS_ON_HOMEPAGE: 3,
   NUM_WORKS_ON_HOMEPAGE: 2,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
+  DEFAULT_IMAGE: 'https://avatars.githubusercontent.com/u/39927312',
 };
 
 export const HOME: Metadata = {

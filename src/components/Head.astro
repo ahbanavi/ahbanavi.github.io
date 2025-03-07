@@ -9,16 +9,40 @@ import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import lora400 from "@fontsource/lora/files/lora-latin-400-normal.woff2";
 import lora600 from "@fontsource/lora/files/lora-latin-600-normal.woff2";
 import { ViewTransitions } from "astro:transitions";
+import { SEO } from 'astro-seo';
+import { SITE } from '../consts';
 
 interface Props {
   title: string;
   description: string;
-  image?: string;
+  image_?: any;
+  noindex?: boolean;
+  nofollow?: boolean;
+  ogTitle?: string;
+  ogType?: string;
 }
+
+const siteBaseURL = new URL(Astro.url);
+const defaultImage = new URL(SITE.DEFAULT_IMAGE, siteBaseURL);
+
+const {
+	title = SITE.NAME,
+	description = 'Amir Banavi Personal Blog',
+	noindex = false,
+	nofollow = false,
+	ogTitle = title,
+	ogType = 'website',
+  image_ = '',
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/nano.png" } = Astro.props;
+
+let image = defaultImage;
+if (image_) {
+  image = new URL(image_.src, siteBaseURL);
+}
+
 ---
 
 <!-- Global Metadata -->
@@ -36,27 +60,55 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <link rel="preload" href={lora600} as="font" type="font/woff2" crossorigin/>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
 
-<!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<SEO
+	title={title}
+	description={description}
+	canonical={canonicalURL}
+	noindex={noindex}
+	nofollow={nofollow}
+	openGraph={{
+		basic: {
+			url: canonicalURL,
+			title: ogTitle,
+			type: ogType,
+			image: image.toString(),
+		},
+		image: {
+			url: image.toString(),
+			secureUrl: image.toString(),
+			alt: ogTitle,
+			height: image_?.height,
+			width: image_?.width,
+			type: image_?.format && `image/${image_.format}`,
+		},
+	}}
+	twitter={{
+		creator: '@iyedoost',
+		image: image.toString(),
+		imageAlt: ogTitle,
+		title: ogTitle,
+		site: '@iyedoost',
+		description: description,
+		card: image ? 'summary_large_image' : 'summary',
+	}}
+	extend={{
+		meta: [
+			{
+				name: 'og:locale',
+				content: 'en_US',
+			},
+			{
+				name: 'og:description',
+				content: description,
+			},
+			{
+				name: 'og:site_name',
+				content: SITE.NAME,
+			}
+		]
+	}}
+/>
 
 <ViewTransitions  />
 
